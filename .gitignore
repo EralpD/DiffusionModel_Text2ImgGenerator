@@ -1,0 +1,7 @@
+.results/
+.models/
+.data/
+__pycache__/
+*.log
+dockerfile
+helper.md
