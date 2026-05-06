@@ -8,6 +8,12 @@
 *Installation:*
 
 ```bash
+git clone https://github.com/EralpD/DiffusionModel_Text2ImgGenerator.git
+python -m venv myenv
+source myenv/bin/activate
+```
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -22,7 +28,7 @@ python train.py
 ```
 
 - The model iterating its noise via *cosine noise scheduler*, 
-  where $\bar{\alpha}_t = \frac{f(t)}{f(0)}$, $f(t) = \cos\\left(\frac{t/T + s}{1 + s} \cdot \frac{\pi}{2}\right)^2$, and $\beta\_t = 1 - \frac{\bar{\alpha}\_t}{\bar{\alpha}\_{t-1}}$. The scheduler designed to produce smoother denoising and better sample quality. With forward process, the model learns to predict the noise added to the images at each time step, and with reverse process, it generates images by iteratively denoising the noise, as well as; $$x_t = \sqrt{\bar{\alpha}_t} \cdot x_0 + \sqrt{1 - \bar{\alpha}_t} \cdot \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, I)$$.
+  where $\bar{\alpha}_t = \frac{f(t)}{f(0)}$, $f(t) = \cos\left(\frac{t/T + s}{1 + s} \cdot \frac{\pi}{2}\right)^2$, and $\beta\_t = 1 - \frac{\bar{\alpha}\_t}{\bar{\alpha}\_{t-1}}$. The scheduler designed to produce smoother denoising and better sample quality. With forward process, the model learns to predict the noise added to the images at each time step, and with reverse process, it generates images by iteratively denoising the noise, as well as; $$x_t = \sqrt{\bar{\alpha}_t} \cdot x_0 + \sqrt{1 - \bar{\alpha}_t} \cdot \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, I)$$.
   
   
 - For text2image generation, CLIP text encoder encodes the text prompts for pass through to the model itself. Cross attention binds the text and noise features together, and it learns to generate images based on the text prompts. For cross attention, traditional cross attention has been used, as well as Group Normalization for normalization, and softmax for activation function has been used. All of cross attentions are implemented into U-Net architecture, which are very effective at bottom parts.
@@ -65,10 +71,10 @@ a photo of a bird
 *Upscaler:*
 
 ```bash
-python test_upscaler.py
+python testUpscale.py
 ```
 
-with it, upscaler model can be observed to upscale low-resolution images to higher resolutions, also with good quality even in complex situations:
+with it, required components will be started to download. After that, upscaler model can be observed to upscale low-resolution images to higher resolutions, also with good quality even in complex situations:
 
 <br>
 
